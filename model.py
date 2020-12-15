@@ -88,13 +88,15 @@ class ResidualUnit(object):
         y = self._skip_connection(y, downsample, n_filters_in)
         # 1st layer
         x = Conv1D(self.n_filters_out, self.kernel_size, padding='same',
-                   use_bias=False, kernel_initializer=self.kernel_initializer)(x)
+                   use_bias=False, 
+                   kernel_initializer=self.kernel_initializer)(x)
         x = self._batch_norm_plus_activation(x)
         if self.dropout_rate > 0:
             x = Dropout(self.dropout_rate)(x)
 
         # 2nd layer
-        x = Conv1D(self.n_filters_out, self.kernel_size, strides=downsample,
+        x = Conv1D(self.n_filters_out, self.kernel_size, 
+                   strides=downsample,
                    padding='same', use_bias=False,
                    kernel_initializer=self.kernel_initializer)(x)
         if self.preactivation:
@@ -133,7 +135,8 @@ x, y = ResidualUnit(64, 256, kernel_size=kernel_size,
 x, _ = ResidualUnit(16, 320, kernel_size=kernel_size,
                     kernel_initializer=kernel_initializer)([x, y])
 x = Flatten()(x)
-diagn = Dense(6, activation='sigmoid', kernel_initializer=kernel_initializer)(x)
+diagn = Dense(6, activation='sigmoid', 
+              kernel_initializer=kernel_initializer)(x)
 model = Model(signal, diagn)
 # ----------------- #
 

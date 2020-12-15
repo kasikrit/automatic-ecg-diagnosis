@@ -24,6 +24,7 @@ if unk:
 
 # %% Import
 # Import data
+args.tracings = 'data/ecg_tracings.hdf5'
 with h5py.File(args.tracings, "r") as f:
     x = np.array(f['tracings'])
 # Import model
